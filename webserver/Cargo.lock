@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "mini-webserver"
+name = "webserver"
 version = "0.1.0"
