@@ -26,9 +26,9 @@ Rust学习路径规划和相关学习资料、开源项目汇总
 - 玩具级的olap数据库
 
 
-### Key-Value
-可以参考多个项目
-- [tokio](https://github.com/tokio-rs/mini-redis)
+### KV数据
+参考mini-redis实现一个kv数据库
+- [mini-redis](https://github.com/tokio-rs/mini-redis)
 
 ### 搜索引擎
-知乎的rucene或sonic
+参考知乎的rucene或sonic
