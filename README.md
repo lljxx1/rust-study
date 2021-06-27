@@ -17,9 +17,10 @@ Rust学习路径规划和相关学习资料、开源项目汇总
 - [tokio](https://github.com/tokio-rs/tokio) - 异步IO、网络、定时器基础库
 - [rucene](https://github.com/zhihu/rucene) - Rust port of Lucene
 - [terarkdb](https://github.com/bytedance/terarkdb) - 兼容RocksDB协议且性能更好的KV存储引擎
+- [tikv](https://github.com/tikv/tikv) - 分布式KV数据库
 
 ## 长期Roadmap
-- 兼容redis协议的key-value store，支持多节点路由分片等
+- 兼容Redis协议的单机key-value store
 - 基于rucene实现一个类elasticsearch的全文检索
 - 根据基于faiss-rs给搜索引擎扩充向量检索支持
 - 玩具级的olap数据库
