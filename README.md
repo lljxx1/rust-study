@@ -1,16 +1,16 @@
 # Rust-Study
-Rust学习
+Rust学习路径规划和相关学习资料、开源项目汇总
 
 ## 基础
+- [Rust 程序设计语言](https://kaisery.github.io/trpl-zh-cn/title-page.html)
+- [Roguelike Tutorial](https://bfnightly.bracketproductions.com/rustbook/chapter_0.html)
 
-### Rust 程序设计语言
-[在线中文](https://kaisery.github.io/trpl-zh-cn/title-page.html)
-
-### 练习
+### 练习题
 - [mingrep](https://kaisery.github.io/trpl-zh-cn/ch12-00-an-io-project.html)
 - [webserver](https://kaisery.github.io/trpl-zh-cn/ch20-00-final-project-a-web-server.html)
 
 ## 开源学习
+
 - [sonic](https://github.com/valeriansaliou/sonic) - 快速、轻量级搜索引擎
 - [arrow-rs](https://github.com/apache/arrow-rs) - Apache Arrow的Rust实现
 - [indradb](https://github.com/indradb/indradb) - 图数据库
