@@ -16,6 +16,7 @@ Rust学习
 - [indradb](https://github.com/indradb/indradb) - 图数据库
 - [tokio](https://github.com/tokio-rs/tokio) - 异步IO、网络、定时器基础库
 - [rucene](https://github.com/zhihu/rucene) - Rust port of Lucene
+- [terarkdb](https://github.com/bytedance/terarkdb) - 兼容RocksDB协议且性能更好的KV存储引擎
 
 ## 长期Roadmap
 - 兼容redis协议的key-value store，支持多节点路由分片等
