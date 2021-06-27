@@ -3,6 +3,11 @@ Rust学习路径规划和相关学习资料、开源项目汇总
 
 ## 基础
 - [Rust 程序设计语言](https://kaisery.github.io/trpl-zh-cn/title-page.html) - 语言基础学习
+
+## 教程
+- [Writing an OS in Rust](https://os.phil-opp.com/)
+- [embedded operating systems](https://github.com/dddrrreee/cs140e-20win/)
+- [Tutorial for rCore OS](https://github.com/rcore-os/rCore-Tutorial)
 - [Roguelike Tutorial](https://bfnightly.bracketproductions.com/rustbook/chapter_0.html) - 游戏开发教程
 
 ### 练习题
