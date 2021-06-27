@@ -2,8 +2,8 @@
 Rust学习路径规划和相关学习资料、开源项目汇总
 
 ## 基础
-- [Rust 程序设计语言](https://kaisery.github.io/trpl-zh-cn/title-page.html)
-- [Roguelike Tutorial](https://bfnightly.bracketproductions.com/rustbook/chapter_0.html)
+- [Rust 程序设计语言](https://kaisery.github.io/trpl-zh-cn/title-page.html) - 语言基础学习
+- [Roguelike Tutorial](https://bfnightly.bracketproductions.com/rustbook/chapter_0.html) - 游戏开发教程
 
 ### 练习题
 - [mingrep](https://kaisery.github.io/trpl-zh-cn/ch12-00-an-io-project.html)
