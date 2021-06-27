@@ -6,11 +6,11 @@ rust学习
 ### Rust 程序设计语言
 [在线中文](https://kaisery.github.io/trpl-zh-cn/title-page.html)
 
-#### 练习
+### 练习
 - [mingrep](https://kaisery.github.io/trpl-zh-cn/ch12-00-an-io-project.html)
 - [webserver](https://kaisery.github.io/trpl-zh-cn/ch20-00-final-project-a-web-server.html)
 
-### 开源学习
+## 开源学习
 - [sonic](https://github.com/valeriansaliou/sonic) - 快速、轻量级搜索引擎
 - [arrow-rs](https://github.com/apache/arrow-rs) - Apache Arrow的Rust实现
 - [indradb](https://github.com/indradb/indradb) - 图数据库
