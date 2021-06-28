@@ -31,7 +31,7 @@ Rust学习路径规划和相关学习资料、开源项目汇总
 - [tikv](https://github.com/tikv/tikv) - 分布式KV数据库
 
 ### 区块链
-- [emv](https://github.com/rust-blockchain/evm) - 纯Rust实现的Ethereum Virtual Machine
+- [evm](https://github.com/rust-blockchain/evm) - 纯Rust实现的Ethereum Virtual Machine
 
 ## Roadmap
 - 基于Rust的EVM，尝试兼容到基于rust写的公链
