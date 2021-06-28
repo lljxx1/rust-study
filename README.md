@@ -26,7 +26,8 @@ Rust学习路径规划和相关学习资料、开源项目汇总
 - [terarkdb](https://github.com/bytedance/terarkdb) - 兼容RocksDB协议且性能更好的KV存储引擎
 - [tikv](https://github.com/tikv/tikv) - 分布式KV数据库
 
-## 长期Roadmap
+## Roadmap
+- 基于Rust的EVM，尝试兼容到基于rust写的公链
 - 兼容Redis协议的单机key-value store
 - 基于rucene实现一个类elasticsearch的全文检索
 - 根据基于faiss-rs给搜索引擎扩充向量检索支持
