@@ -35,7 +35,12 @@ Rust学习路径规划和相关学习资料、开源项目汇总
 - [ethers-rs](https://github.com/gakonst/ethers-rs) - Complete Ethereum & Celo library and wallet implementation in Rust.
 
 ## Roadmap
+
+### Blockchain
 - 基于Rust的EVM，尝试兼容到基于rust写的公链
+- 为Rust区块链SDK基础库贡献代码
+
+### Databse / Search Engine
 - 兼容Redis协议的单机key-value store
 - 基于rucene实现一个类elasticsearch的全文检索
 - 根据基于faiss-rs给搜索引擎扩充向量检索支持
