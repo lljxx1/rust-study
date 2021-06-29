@@ -1,7 +1,8 @@
-use mini_redis::{Connection, Frame};
+use mini_redis::{Frame};
 
 use bytes::Bytes;
 use std::{fmt, str, vec};
+use mini_redis::Error;
 
 #[derive(Debug)]
 pub struct Parse {
@@ -9,9 +10,9 @@ pub struct Parse {
 }
 
 #[derive(Debug)]
-pub(crate) enum ParseError {
+pub enum ParseError {
     EndOfStream,
-    Other(crate::Error),
+    Other(Error),
 }
 
 impl Parse {
@@ -24,7 +25,6 @@ impl Parse {
         Ok(Parse {
             parts: array.into_iter(),
         })
-
     }
 
     pub fn next(&mut self) -> Result<Frame, ParseError> {
@@ -83,7 +83,7 @@ impl Parse {
 
 impl From<String> for ParseError {
     fn from(src: String) -> ParseError {
-        ParseError::Other("other")
+        ParseError::Other(src.into())
     }
 }
 

@@ -18,6 +18,19 @@ async fn main() {
 }
 
 
+fn handle_frame(frame: Frame) {
+    let mut parse = match Parse::new(frame) {
+        Ok(p) => p,
+        Err(er) => panic!("get comand name failed"),
+    };
+
+    let comand_name = parse.next_string();
+    println!("GOT: {:?}", comand_name);
+
+    // Ok(())
+}
+
+
 
 async fn process(socket: TcpStream, db: &Databse) {
     let mut connection = Connection::new(socket);
@@ -25,9 +38,8 @@ async fn process(socket: TcpStream, db: &Databse) {
     if let Some(frame) = connection.read_frame().await.unwrap() {
         // println!("GOT: {:?}", frame);
         // let cmdName = cmd.get_name();
-        let parse = Parse::new(frame)?;
-        let comand_name = parse.next_string();
-        // parse_frame(frame);
+       
+        handle_frame(frame);
         // match Command::from_frame(frame) {
         //     Err(er) => println!("get comand name failed"),
         //     Ok(cmd) => {
