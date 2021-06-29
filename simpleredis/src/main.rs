@@ -3,8 +3,6 @@ use mini_redis::{Connection, Frame};
 use mini_redis::cmd::Command;
 use simpleredis::database::Databse;
 
-
-
 #[tokio::main]
 async fn main() {
     let mut db = Databse::new();
@@ -15,13 +13,11 @@ async fn main() {
     }
 }
 
-
 async fn process(socket: TcpStream, db: &Databse) {
     let mut connection = Connection::new(socket);
 
     if let Some(frame) = connection.read_frame().await.unwrap() {
         // println!("GOT: {:?}", frame);
-
         // let cmdName = cmd.get_name();
         match Command::from_frame(frame) {
             Err(er) => println!("get comand name failed"),

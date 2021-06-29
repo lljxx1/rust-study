@@ -1,11 +1,4 @@
-
-
 pub mod database;
-
-
-
-
-
 
 #[cfg(test)]
 mod tests {
@@ -14,7 +7,6 @@ mod tests {
 
     #[test]
     fn test_set() {
-
         let mut db = Databse::new();
         for id in 0..1 {
             let keyName = format!("hello{}", id);
