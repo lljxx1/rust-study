@@ -1,8 +1,9 @@
 use tokio::net::{TcpListener, TcpStream};
 use mini_redis::{Connection, Frame};
-use mini_redis::cmd::Command;
+// use mini_redis::cmd::Command;
 use simpleredis::database::Databse;
 use simpleredis::parse::Parse;
+use simpleredis::cmd::Command;
 
 use std::{fmt, str, vec};
 use bytes::Bytes;
@@ -38,24 +39,13 @@ async fn process(socket: TcpStream, db: &Databse) {
     if let Some(frame) = connection.read_frame().await.unwrap() {
         // println!("GOT: {:?}", frame);
         // let cmdName = cmd.get_name();
-       
-        handle_frame(frame);
-        // match Command::from_frame(frame) {
-        //     Err(er) => println!("get comand name failed"),
-        //     Ok(cmd) => {
-        //         match cmd {
-        //             Command::Publish(_) => {},
-        //             Command::Set(_) => {},
-        //             Command::Subscribe(_) => {},
-        //             Command::Unsubscribe(_) => {},
-        //             Command::Unknown(cmd) => {},
-        //             Command::Get(_)=> {
-        //                 let key = _.key();
-        //                 println!("get comand {}", key);
-        //             }
-        //         }
-        //     }
-        // }
+        // handle_frame(frame);
+        match Command::from_frame(frame) {
+            Err(er) => println!("get comand name failed"),
+            Ok(cmd) => {
+                cmd.apply();
+            }
+        }
 
         let response = Frame::Error("unimplemented".to_string());
         connection.write_frame(&response).await.unwrap();
