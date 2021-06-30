@@ -1,5 +1,4 @@
 use std::collections::HashMap;
-use std::sync::{Arc, Mutex};
 
 pub struct Databse {
     store: HashMap<String, String>,

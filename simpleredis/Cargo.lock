@@ -456,6 +456,8 @@ dependencies = [
 name = "simpleredis"
 version = "0.1.0"
 dependencies = [
+ "atoi",
+ "bytes",
  "mini-redis",
  "tokio",
 ]

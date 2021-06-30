@@ -1,5 +1,9 @@
-
 pub mod database;
+pub mod parse;
+pub mod cmd;
+
+pub type Error = Box<dyn std::error::Error + Send + Sync>;
+
 
 #[cfg(test)]
 mod tests {
@@ -8,7 +12,6 @@ mod tests {
 
     #[test]
     fn test_set() {
-
         let mut db = Databse::new();
         for id in 0..1 {
             let keyName = format!("hello{}", id);

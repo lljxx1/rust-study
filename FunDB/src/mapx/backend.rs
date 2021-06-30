@@ -122,7 +122,11 @@ where
     // Imitate the behavior of '.iter()'
     #[inline(always)]
     pub(super) fn iter(&self) -> MapxIter<K, V> {
-        todo!()
+        // todo!()
+        MapxIter {
+            iter: self.db.iter(),
+            _pd: PhantomData
+        }
     }
 
     pub(super) fn contains_key(&self, key: &K) -> bool {
