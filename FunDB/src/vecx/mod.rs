@@ -131,7 +131,16 @@ where
     /// Imitate the behavior of '.iter()'
     #[inline(always)]
     pub fn iter(&self) -> Box<dyn Iterator<Item = T> + '_> {
-        todo!()
+        // todo!()
+        if self.in_mem.len() == self.in_disk().len() {
+            Box::new(VecxIterMem {
+                iter: self.in_mem.iter(),
+            })
+        } else {
+            Box::new(VecxIter {
+                iter: self.in_disk.iter(),
+            })
+        }
     }
 
     /// Flush data to disk
@@ -163,7 +172,8 @@ where
 {
     type Item = T;
     fn next(&mut self) -> Option<Self::Item> {
-        todo!()
+        // todo!()
+        self.iter.next().map(|v| v.1)
     }
 }
 
@@ -182,7 +192,8 @@ where
 {
     type Item = T;
     fn next(&mut self) -> Option<Self::Item> {
-        todo!()
+        // todo!()
+        self.iter.next().map(|v| v.clone())
     }
 }
 

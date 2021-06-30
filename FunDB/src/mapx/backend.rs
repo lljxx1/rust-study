@@ -181,7 +181,8 @@ where
 {
     type Item = (K, V);
     fn next(&mut self) -> Option<Self::Item> {
-        todo!()
+        // todo!()
+        self.iter.next().map(|v| v.1)
     }
 }
 
