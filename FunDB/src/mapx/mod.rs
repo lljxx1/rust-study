@@ -162,7 +162,16 @@ where
     /// Imitate the behavior of '.iter()'
     #[inline(always)]
     pub fn iter(&self) -> Box<dyn Iterator<Item = (K, V)> + '_> {
-        todo!()
+        // todo!()
+        if self.in_mem.len() == self.in_disk.len() {
+            Box::new(MapxIterMem {
+                iter: self.in_mem.iter(),
+            })
+        } else {
+            Box::new(MapxIter {
+                iter: self.in_disk.iter(),
+            })
+        }
     }
 
     /// Check if a key is exists.

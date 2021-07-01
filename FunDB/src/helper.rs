@@ -1,16 +1,23 @@
 //!
 //! # Common Types and Macros
 //!
-
+//! 
 use lazy_static::lazy_static;
 use ruc::*;
 use serde::{de::DeserializeOwned, Serialize};
-use std::{borrow::Cow, cmp::Ordering, convert::TryInto, env, fmt, fs, mem, ops::Deref};
+use std::{borrow::Cow, cmp::Ordering, 
+env, 
+fmt, 
+fs, 
+ops::Deref};
+
 
 lazy_static! {
+    /// the directory of cache
     pub static ref CACHE_DIR: String = env::var("FUNDB_DIR").unwrap_or_else(|_| "/tmp".to_owned());
 }
 
+/// try_twice
 #[macro_export]
 macro_rules! try_twice {
     ($ops: expr) => {
@@ -21,6 +28,7 @@ macro_rules! try_twice {
     };
 }
 
+/// unique_path
 #[macro_export]
 macro_rules! unique_path {
     () => {
@@ -36,6 +44,7 @@ macro_rules! unique_path {
     };
 }
 
+/// new_vecx
 #[macro_export]
 macro_rules! new_vecx {
     ($ty: ty, $in_mem_cnt: expr) => {
@@ -52,6 +61,7 @@ macro_rules! new_vecx {
     };
 }
 
+/// new_vecx_custom
 #[macro_export]
 macro_rules! new_vecx_custom {
     ($ty: ty, $in_mem_cnt: expr, $is_tmp: expr) => {{
@@ -75,6 +85,8 @@ macro_rules! new_vecx_custom {
     };
 }
 
+
+/// new_mapx
 #[macro_export]
 macro_rules! new_mapx {
     ($ty: ty, $in_mem_cnt: expr) => {
@@ -91,6 +103,7 @@ macro_rules! new_mapx {
     };
 }
 
+/// new_mapx_custom
 #[macro_export]
 macro_rules! new_mapx_custom {
     ($ty: ty, $in_mem_cnt: expr, $is_tmp: expr) => {{
@@ -163,7 +176,8 @@ where
 {
     fn eq(&self, other: &Value<'a, V>) -> bool {
         // todo!()
-        self.value.eq(&other.value)
+        // self.value.eq(&other.value)
+        self.value == other.value
     }
 }
 
@@ -172,7 +186,8 @@ where
     V: Clone + Eq + PartialEq + Serialize + DeserializeOwned + fmt::Debug,
 {
     fn eq(&self, other: &V) -> bool {
-        todo!()
+        // todo!()
+        self.value.deref() == other
     }
 }
 
@@ -181,7 +196,8 @@ where
     V: fmt::Debug + Clone + Eq + PartialEq + Ord + PartialOrd + Serialize + DeserializeOwned,
 {
     fn partial_cmp(&self, other: &V) -> Option<Ordering> {
-        todo!()
+        // todo!()
+        self.value.deref().partial_cmp(other)
     }
 }
 
@@ -232,15 +248,27 @@ where
 
 #[inline(always)]
 pub(crate) fn sled_open(path: &str, is_tmp: bool) -> Result<sled::Db> {
-    todo!()
+    // todo!()
+    let mut cf = sled::Config::default().path(path).mode(sled::Mode::HighThroughput)
+        .use_compression(false);
+
+    if is_tmp {
+        cf = cf.temporary(true);
+    }
+    cf.open().c(d!())
 }
 
 #[inline(always)]
 pub(crate) fn read_db_len(path: &str) -> Result<usize> {
-    todo!()
+    // todo!()
+    let bytes = fs::read(path).unwrap();
+    let mut buffer = [0u8; 8];
+    buffer.copy_from_slice(&bytes[0..8]);
+    Ok(usize::from_le_bytes(buffer))
 }
 
 #[inline(always)]
 pub(crate) fn write_db_len(path: &str, len: usize) -> Result<()> {
-    todo!()
+    // todo!()
+    fs::write(path, usize::to_le_bytes(len)).c(d!())
 }

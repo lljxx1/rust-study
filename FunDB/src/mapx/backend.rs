@@ -125,7 +125,8 @@ where
         // todo!()
         MapxIter {
             iter: self.db.iter(),
-            _pd: PhantomData
+            _pd0: PhantomData,
+            _pd1: PhantomData,
         }
     }
 
@@ -182,7 +183,15 @@ where
     type Item = (K, V);
     fn next(&mut self) -> Option<Self::Item> {
         // todo!()
-        self.iter.next().map(|v| v.1)
+        self.iter.next()
+            .map(|v| v.ok())
+            .flatten()
+            .map(|(key, value)| {
+                (
+                    pnk!(bincode::deserialize(&key)),
+                    pnk!(serde_json::from_slice(&value)),
+                )
+            })
     }
 }
 
@@ -228,7 +237,7 @@ where
 {
     fn eq(&self, other: &Mapx<K, V>) -> bool {
         // todo!()
-        
+        !self.iter().zip(other.iter()).any(|(a, b)|{ a != b})
     }
 }
 

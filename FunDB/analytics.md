@@ -1,17 +1,15 @@
 # funddb
 扩展了两种的支持持久化的数据结构
-
  - Mapx
  - Vecx
 
-提高写入性能，采取了内存列队机制
-当数据大于内存列队限制，会尝试把超出的部分写入sled磁盘数据库
-整个代码主要是围绕数据类型的几个操作和运算+迭代器等相关操作
+提高读取性能，会在内存中缓存一定量的数据，超出的部分需要从从sled取
+整个代码主要是围绕实现这两个数据类型的，以及各种操作和运算+迭代器的Trait实现等相关操作
 
 ## helper.rs
 
 ### Trait Deref Value
-- `src/helper.rs:155:        todo!()`
+- `src/helper.rs:155:        todo!()` return reference
 
 ### Trait PartialEq + PartialOrd
 - `src/helper.rs:164:        todo!()` other type is Value
@@ -27,9 +25,10 @@ value = Cow<'a, V>
 
 
 ### sled helper function
+sled initliaze, data counter
 - `src/helper.rs:228:    todo!()` sled_open initliaze sled instance
-- `src/helper.rs:233:    todo!()` read_db_len read
-- `src/helper.rs:238:    todo!()` write_db_len  write
+- `src/helper.rs:233:    todo!()` read_db_len read counter
+- `src/helper.rs:238:    todo!()` write_db_len save counter
 
 
 ## mapx/backend.rs
@@ -50,8 +49,7 @@ Mapx结构的具体实现
  - in_mem_cnt 内存数据长度
 
 Trait 
-- src/mapx/mod.rs:165:        todo!()  - iter åconsider in mem and disk
-
+- src/mapx/mod.rs:165:        todo!()  - iter consider in mem and disk
 
 
 ## mapx/backend.rs

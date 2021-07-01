@@ -132,7 +132,7 @@ where
     #[inline(always)]
     pub fn iter(&self) -> Box<dyn Iterator<Item = T> + '_> {
         // todo!()
-        if self.in_mem.len() == self.in_disk().len() {
+        if self.in_mem.len() == self.in_disk.len() {
             Box::new(VecxIterMem {
                 iter: self.in_mem.iter(),
             })
@@ -193,7 +193,7 @@ where
     type Item = T;
     fn next(&mut self) -> Option<Self::Item> {
         // todo!()
-        self.iter.next().map(|v| v.clone())
+        self.iter.next().map(|v| v.1.clone())
     }
 }
 
