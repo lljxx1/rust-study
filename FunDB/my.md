@@ -14,9 +14,9 @@
 - `src/helper.rs:155:        todo!()`
 
 ### Trait PartialEq + PartialOrd
-- `src/helper.rs:164:        todo!()`
-- `src/helper.rs:173:        todo!()`
-- `src/helper.rs:182:        todo!()`
+- `src/helper.rs:164:        todo!()` other type is Value
+- `src/helper.rs:173:        todo!()` other is reference V
+- `src/helper.rs:182:        todo!()` partial_cmp Option<Ordering> 
 
 ### Trait From: convert any to Value
 value = Cow<'a, V>
