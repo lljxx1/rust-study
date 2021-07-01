@@ -192,7 +192,17 @@ where
     V: Clone + Eq + PartialEq + Serialize + DeserializeOwned + fmt::Debug,
 {
     fn next_back(&mut self) -> Option<Self::Item> {
-        todo!()
+        // todo!()
+        self.iter
+            .next_back()
+            .map(|v| v.ok())
+            .flatten()
+            .map(|(key, value)| {
+                (
+                    pnk!(bincode::deserialize(&key)),
+                    pnk!(serde_json::from_slice(&value)),
+                )
+            })
     }
 }
 
@@ -217,7 +227,8 @@ where
     V: Clone + Eq + PartialEq + Serialize + DeserializeOwned + fmt::Debug,
 {
     fn eq(&self, other: &Mapx<K, V>) -> bool {
-        todo!()
+        // todo!()
+        
     }
 }
 

@@ -152,7 +152,8 @@ where
     type Target = V;
 
     fn deref(&self) -> &Self::Target {
-        todo!()
+        // todo!()
+        &self.value
     }
 }
 
@@ -161,7 +162,8 @@ where
     V: Clone + Eq + PartialEq + Serialize + DeserializeOwned + fmt::Debug,
 {
     fn eq(&self, other: &Value<'a, V>) -> bool {
-        todo!()
+        // todo!()
+        self.value.eq(&other.value)
     }
 }
 
@@ -188,7 +190,8 @@ where
     V: Clone + Eq + PartialEq + Serialize + DeserializeOwned + fmt::Debug,
 {
     fn from(v: V) -> Self {
-        todo!()
+        // todo!()
+        Value::new(Cow::Owned(v))
     }
 }
 
@@ -197,7 +200,8 @@ where
     V: Clone + Eq + PartialEq + Serialize + DeserializeOwned + fmt::Debug,
 {
     fn from(v: Cow<'a, V>) -> Self {
-        todo!()
+        // todo!()
+        Value::new(v)
     }
 }
 
@@ -206,7 +210,9 @@ where
     V: Clone + Eq + PartialEq + Serialize + DeserializeOwned + fmt::Debug,
 {
     fn from(v: Value<'a, V>) -> Self {
-        todo!()
+        // todo!()
+        // Value::new(Cow::Owned(v.clone()))
+        v.into_inner()
     }
 }
 
@@ -215,7 +221,8 @@ where
     V: Clone + Eq + PartialEq + Serialize + DeserializeOwned + fmt::Debug,
 {
     fn from(v: &V) -> Self {
-        todo!()
+        // todo!()
+        Value::new(Cow::Owned(v.clone()))
     }
 }
 
