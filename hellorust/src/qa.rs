@@ -24,7 +24,7 @@ mod test {
 
         {
             // fix this line to make this test pass
-            a.resize(100000001, 0);
+            a = a.resize(10000000, 0);
             a[10000000] = 1;
         }
 
@@ -39,14 +39,7 @@ mod test {
 
         {
             // fix this line to make this test pass
-            b = futures::executor::block_on(a)
-            // let cx = &mut Context::from_waker(&waker);
-            // loop {
-            //     match a.as_mut().poll(cx) {
-            //         Poll::Ready(output) => return output,
-            //         Poll::Pending => std::thread::park(),
-            //     }
-            // }
+            b = a();
         }
 
         assert_eq!(b, "Hello World!");
