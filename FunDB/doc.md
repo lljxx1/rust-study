@@ -122,37 +122,105 @@ let b;
 但实际的话这个项目相似度很高很多逻辑是重复相似的，仔细看很多实现都能在里面找到解
 
 ## 项目分析
-扩展了两种的支持持久化的数据结构
+扩展了两种的支持持久化的数据结构，持久化是用rust写的`sled`嵌入式数据库做的
  - Mapx
  - Vecx
 
-提高读取性能，会在内存中缓存一定量的数据，超出的部分需要从从`sled`取  
+为了提高读取性能，会在内存中缓存一定量的数据，超出的部分需要从`sled`取  
 整个代码主要是围绕实现这两个数据类型的，以及各种操作和运算+迭代器的Trait实现等相关操作
 
 ## helper.rs
 
 ### Trait Deref Value
-- `src/helper.rs:155:        todo!()` return reference
+#### `src/helper.rs:155:        todo!()` return Value reference  
+``` rust 
+fn deref(&self) -> &Self::Target {
+    &self.value
+}
+```
+详细：翻开 Rust 程序设计语言 - [通过 Deref trait 将智能指针当作常规引用处理](https://kaisery.github.io/trpl-zh-cn/ch15-02-deref.html)
 
 ### Trait PartialEq + PartialOrd
-- `src/helper.rs:164:        todo!()` other type is Value
-- `src/helper.rs:173:        todo!()` other is reference V
-- `src/helper.rs:182:        todo!()` partial_cmp Option<Ordering> 
+#### `src/helper.rs:164:        todo!()` other type is Value
+``` rust
+fn eq(&self, other: &Value<'a, V>) -> bool {
+    self.value == other.value
+}
+```
+另一个比对对象也是Value类型
+
+#### `src/helper.rs:173:        todo!()` other is reference V
+``` rust
+fn eq(&self, other: &V) -> bool {
+    self.value.deref() == other
+}
+```
+
+#### `src/helper.rs:182:        todo!()` partial_cmp Option<Ordering> 
+``` rust
+fn partial_cmp(&self, other: &V) -> Option<Ordering> {
+    self.value.deref().partial_cmp(other)
+}
+```
 
 ### Trait From: convert any to Value
 value = Cow<'a, V>
-- `src/helper.rs:191:        todo!()`  v is any type
-- `src/helper.rs:200:        todo!()`  v type is is Cow
-- `src/helper.rs:209:        todo!()`  v type is Value
-- `src/helper.rs:218:        todo!()`  v is referenece
 
+#### `src/helper.rs:191:        todo!()`  v is any type
+``` rust
+fn from(v: V) -> Self {
+    Value::new(Cow::Owned(v))
+}
+```
+#### `src/helper.rs:200:        todo!()`  v type is is Cow
+``` rust
+fn from(v: Cow<'a, V>) -> Self {
+    Value::new(v)
+}
+```
+#### `src/helper.rs:209:        todo!()`  v type is Value
+``` rust
+fn from(v: Value<'a, V>) -> Self {
+    v.into_inner()
+}
+```
+#### `src/helper.rs:218:        todo!()`  v is referenece
+``` rust
+fn from(v: &V) -> Self {
+    Value::new(Cow::Owned(v.clone()))
+}
+```
 
 ### sled helper function
 sled initliaze, data counter
-- `src/helper.rs:228:    todo!()` sled_open initliaze sled instance
-- `src/helper.rs:233:    todo!()` read_db_len read counter
-- `src/helper.rs:238:    todo!()` write_db_len save counter
+#### `src/helper.rs:228:    todo!()` sled_open initliaze sled instance
+``` rust
+pub(crate) fn sled_open(path: &str, is_tmp: bool) -> Result<sled::Db> {
+    let mut cf = sled::Config::default().path(path).mode(sled::Mode::HighThroughput)
+        .use_compression(false);
 
+    if is_tmp {
+        cf = cf.temporary(true);
+    }
+    cf.open().c(d!())
+}
+```
+
+#### `src/helper.rs:233:    todo!()` read_db_len read counter
+``` rust
+pub(crate) fn read_db_len(path: &str) -> Result<usize> {
+    let bytes = fs::read(path).unwrap();
+    let mut buffer = [0u8; 8];
+    buffer.copy_from_slice(&bytes[0..8]);
+    Ok(usize::from_le_bytes(buffer))
+}
+```
+#### `src/helper.rs:238:    todo!()` write_db_len save counter
+``` rust
+pub(crate) fn write_db_len(path: &str, len: usize) -> Result<()> {
+    fs::write(path, usize::to_le_bytes(len)).c(d!())
+}
+```
 
 ## mapx/backend.rs
 Mapx基于sled的存储实现
