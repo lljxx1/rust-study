@@ -226,12 +226,55 @@ pub(crate) fn write_db_len(path: &str, len: usize) -> Result<()> {
 Mapx基于sled的存储实现
 
 ### Trait Iterator
-- src/mapx/backend.rs:125:        todo!()   - create iterator
-- src/mapx/backend.rs:180:        todo!()   - iterator next
-- src/mapx/backend.rs:190:        todo!()   - iterator next_back
+#### src/mapx/backend.rs:125:        todo!()   - create iterator
+``` rust
+pub(super) fn iter(&self) -> MapxIter<K, V> {
+    MapxIter {
+        iter: self.db.iter(),
+        _pd0: PhantomData,
+        _pd1: PhantomData,
+    }
+}
+```
+#### src/mapx/backend.rs:180:        todo!()   - iterator next
+``` rust
+fn next(&mut self) -> Option<Self::Item> {
+    self.iter.next()
+        .map(|v| v.ok())
+        .flatten()
+        .map(|(key, value)| {
+            (
+                pnk!(bincode::deserialize(&key)),
+                pnk!(serde_json::from_slice(&value)),
+            )
+        })
+}
+```
+#### src/mapx/backend.rs:190:        todo!()   - iterator next_back
+``` rust
+fn next_back(&mut self) -> Option<Self::Item> {
+    self.iter
+        .next_back()
+        .map(|v| v.ok())
+        .flatten()
+        .map(|(key, value)| {
+            (
+                pnk!(bincode::deserialize(&key)),
+                pnk!(serde_json::from_slice(&value)),
+            )
+        })
+}
+```
 
 ### Trait PartialEq
 - src/mapx/backend.rs:215:        todo!()   - compare is same
+``` rust
+fn eq(&self, other: &Mapx<K, V>) -> bool {
+    !self.iter()
+        .zip(other.iter())
+        .any(|(a, b)|{ a != b})
+}
+```
 
 ### mapx/mod.rs
 Mapx结构的具体实现 
@@ -239,36 +282,34 @@ Mapx结构的具体实现
  - in_disk 是backend的Mapx的实例
  - in_mem_cnt 内存数据长度
 
-Trait 
-- src/mapx/mod.rs:165:        todo!()  - iter consider in mem and disk
-
-
-## mapx/backend.rs
-Mapx基于sled的存储实现
-
-### Trait Iterator
-- src/mapx/backend.rs:125:        todo!()   - create iterator
-- src/mapx/backend.rs:180:        todo!()   - iterator next
-- src/mapx/backend.rs:190:        todo!()   - iterator next_back
-
-### Trait PartialEq
-- src/mapx/backend.rs:215:        todo!()   - compare is same
-
-## mapx/mod.rs
-Mapx结构的具体实现 
- - in_mem 存储在内存的数据 HashMap
- - in_disk 是backend的Mapx的实例
- - in_mem_cnt 内存数据长度
-
-Trait 
-- src/mapx/mod.rs:165:        todo!()  - iter consider in mem and disk
-
+#### src/mapx/mod.rs:165:        todo!()  - iter consider in mem and disk
+``` rust
+pub fn iter(&self) -> Box<dyn Iterator<Item = (K, V)> + '_> {
+    if self.in_mem.len() == self.in_disk.len() {
+        Box::new(MapxIterMem {
+            iter: self.in_mem.iter(),
+        })
+    } else {
+        Box::new(MapxIter {
+            iter: self.in_disk.iter(),
+        })
+    }
+}
+```
 
 ## vecx/backend.rs
 Vecx基于sled的存储实现
 
 ### Trait Iterator
-- src/vecx/backend.rs:113:        todo!() create iterator
+#### src/vecx/backend.rs:113:        todo!() create iterator
+``` rust
+pub(super) fn iter(&self) -> VecxIter<T> {
+    VecxIter {
+        iter: self.db.iter(),
+        _pd: PhantomData
+    }
+}
+```
 
 ## vecx/mod.rs
 Vecx结构的具体实现 
@@ -277,6 +318,29 @@ Vecx结构的具体实现
  - in_mem_cnt 内存数据长度  
 
 ### Trait Iterator +
-- src/vecx/mod.rs:134:        todo!()  create iterator: should consider in mem and disk
-- src/vecx/mod.rs:166:        todo!() VecxIter next  backend iter
-- src/vecx/mod.rs:185:        todo!() VecxIterMem next mem btree iter
+#### src/vecx/mod.rs:134:        todo!()  create iterator: should consider in mem and disk
+``` rust
+pub fn iter(&self) -> Box<dyn Iterator<Item = T> + '_> {
+    if self.in_mem.len() == self.in_disk.len() {
+        Box::new(VecxIterMem {
+            iter: self.in_mem.iter(),
+        })
+    } else {
+        Box::new(VecxIter {
+            iter: self.in_disk.iter(),
+        })
+    }
+}
+```
+#### src/vecx/mod.rs:166:        todo!() VecxIter next  backend iter
+``` rust
+fn next(&mut self) -> Option<Self::Item> {
+    self.iter.next().map(|v| v.1)
+}
+```
+#### src/vecx/mod.rs:185:        todo!() VecxIterMem next mem btree iter
+``` rust
+fn next(&mut self) -> Option<Self::Item> {
+    self.iter.next().map(|v| v.1.clone())
+}
+```
