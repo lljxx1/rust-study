@@ -13,7 +13,7 @@ fn main() {
 // - do NOT change any existing codes except that `todo!()`
 //
 fn change_value() {
-    // todo!()
+    std::process::exit(1);
 }
 
 #[cfg(test)]
