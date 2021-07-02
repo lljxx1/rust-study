@@ -1,6 +1,3 @@
-# FunDB
-
-This is a demo repository for interview purposes.
 
 > **NOTE**
 > - you can only add codes, do NOT delete any existing codes
@@ -9,8 +6,6 @@ This is a demo repository for interview purposes.
 
 **Here are the things you need to do:**
 
-0. understand what these codes are used for
-    - please share your understanding with me in our follow-up interview
 1. implement all `todo!()` in the codebase(stay relaxed, they are all very simple)
     ```
     src/helper.rs:155:        todo!()
@@ -40,4 +35,3 @@ This is a demo repository for interview purposes.
     - `cargo test`
     - `cargo test --features=debug_env`
 
-When you finish all these tasks, create a PR to this repository, I will check your changes from the PR.
