@@ -192,7 +192,7 @@ fn from(v: &V) -> Self {
 ```
 
 ### sled helper function
-sled initliaze, data counter
+初始化`sled`数据库，条数的存储读取
 #### `src/helper.rs:228:    todo!()` sled_open initliaze sled instance
 ``` rust
 pub(crate) fn sled_open(path: &str, is_tmp: bool) -> Result<sled::Db> {
@@ -215,12 +215,15 @@ pub(crate) fn read_db_len(path: &str) -> Result<usize> {
     Ok(usize::from_le_bytes(buffer))
 }
 ```
+从文件读取数据长度
+
 #### `src/helper.rs:238:    todo!()` write_db_len save counter
 ``` rust
 pub(crate) fn write_db_len(path: &str, len: usize) -> Result<()> {
     fs::write(path, usize::to_le_bytes(len)).c(d!())
 }
 ```
+写入数据长度到文件
 
 ## mapx/backend.rs
 Mapx基于sled的存储实现
